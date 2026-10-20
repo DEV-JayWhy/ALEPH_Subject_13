@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="PhishScope: 논문 기반 피싱 탐지 입력 특징별 F1, 미탐·오경보를 비교하고 URL 표기 단서를 오프라인으로 관찰하는 교육용 앱">
+<meta name="theme-color" content="#0b1722">
+<title>PhishScope — 피싱 탐지 특징 비교 실험실 | ALEPH 13</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1722;--panel:#102331;--panel2:#142d3b;--line:#2b4855;--mint:#8de2c3;--lime:#c0e979;--cream:#f4f0e7;--muted:#a9bdc1;--orange:#ffba9a;--blue:#8bacf3;--sans:Pretendard,"Noto Sans KR","Apple SD Gothic Neo",system-ui,-apple-system,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--cream);font:16px/1.7 var(--sans);margin:0}a{color:inherit}button,input{font:inherit}button{cursor:pointer}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--lime);outline-offset:4px}::selection{background:#85bbbf;color:#071521}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:20;background:white;color:black;padding:10px}header{height:80px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:auto;padding:0 30px}.brand{text-decoration:none;display:flex;gap:13px;align-items:center;font-weight:850;font-size:21px;letter-spacing:-.7px}.brand-mark{width:33px;height:33px;display:grid;place-items:center;border:1px solid var(--mint);border-radius:10px;color:var(--mint)}nav{display:flex;gap:22px}nav a{text-decoration:none;font-size:13px;color:var(--muted)}nav a:hover{color:var(--cream)}.section{padding:90px max(26px,calc((100vw - 1120px)/2));border-bottom:1px solid var(--line)}.hero{padding-top:108px;padding-bottom:96px;position:relative;overflow:hidden}.hero:after{content:"";width:580px;height:580px;right:-200px;top:-260px;position:absolute;border:1px solid #355a62;border-radius:50%;box-shadow:0 0 0 90px #152d3835,0 0 0 175px #21404a35;pointer-events:none}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:850;color:var(--mint);text-transform:uppercase}.pill{display:inline-flex;align-items:center;gap:9px;background:#18303a;border:1px solid #33515d;color:var(--mint);border-radius:24px;padding:8px 13px;font-size:12px;font-weight:700}.pulse{height:8px;width:8px;border-radius:99px;background:var(--mint)}h1{font-size:clamp(43px,6vw,83px);line-height:1.17;letter-spacing:-3.8px;margin:27px 0;max-width:880px}h1 em{font-style:normal;color:var(--mint)}.lead{color:#c5d6d7;font-size:19px;max-width:800px;line-height:1.9;position:relative;z-index:1}.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin:35px 0 42px}.primary,.secondary{border-radius:9px;text-decoration:none;font-size:14px;font-weight:800;padding:13px 19px;display:inline-flex;align-items:center;gap:9px}.primary{background:var(--mint);color:#092521;border:1px solid var(--mint)}.secondary{border:1px solid #66828b;color:var(--cream)}.primary:hover{background:var(--lime)}.secondary:hover{background:#213947}.fact-band{border-top:1px solid var(--line);padding-top:23px;display:flex;gap:20px;flex-wrap:wrap}.fact-band span{color:var(--muted);font-size:12px}.fact-band strong{color:var(--cream)}h2{font-size:clamp(30px,3.5vw,49px);letter-spacing:-1.9px;line-height:1.3;margin:12px 0}.section-head{margin-bottom:38px}.desc{color:var(--muted);max-width:850px;margin-top:8px}.kicker{color:var(--orange);font-weight:800}.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.model-btn{width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--cream);border-radius:16px;padding:24px;transition:.15s}.model-btn:hover{border-color:var(--mint);transform:translateY(-2px)}.model-btn.is-active{border:2px solid var(--mint);background:var(--panel2);padding:23px}.model-btn small{display:block;color:var(--muted);font-size:13px;margin-bottom:14px}.model-btn strong{display:block;font-size:39px;letter-spacing:-2px;font-weight:800;line-height:1.1}.model-btn span{display:block;font-size:12px;color:var(--muted);margin-top:13px}.paper-card{border:1px solid #385363;border-radius:17px;background:#102632;padding:34px;margin-top:20px;display:grid;grid-template-columns:280px 1fr;gap:40px}.metric-hero{border-right:1px solid var(--line);padding-right:29px}.metric-hero .big{font-size:82px;line-height:1.2;font-weight:850;letter-spacing:-4px;color:var(--lime)}.metric-hero .biglabel{color:var(--muted);font-size:12px}.metric-sub{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;margin-top:13px;gap:15px}.metric-sub span{color:var(--muted);font-size:12px}.metric-sub strong{font-size:17px}.progress-unit{margin:0 0 23px}.progress-top{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;font-size:13px}.progress-top span{color:var(--muted)}.rail{height:17px;overflow:hidden;background:#314651;border-radius:4px}.fill{height:100%;background:var(--mint);transition:width .2s}.fill.regular{background:var(--blue)}.muted{color:var(--muted)}.tiny{font-size:12px}.fnfp{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.mini{background:#172e3a;border-radius:9px;padding:13px}.mini b{display:block;color:var(--orange);font-size:25px}.mini span{font-size:12px;color:var(--muted)}.disclaimer{color:#c5d0ce;border-left:3px solid #879ca3;padding-left:15px;margin:24px 0 0;font-size:13px}.cost-layout{display:grid;grid-template-columns:minmax(240px,.9fr) 1.4fr;gap:26px}.pad-card{padding:31px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.range-head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:750;margin-bottom:15px}.range-head strong{font-size:24px;color:var(--lime)}input[type=range]{accent-color:var(--mint);width:100%;height:32px;cursor:pointer}.range-ticks{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.winner{margin-top:25px;border-top:1px solid var(--line);padding-top:16px}.winner small{display:block;color:var(--muted)}.winner strong{font-size:24px;color:var(--mint)}.cost-item{margin:16px 0}.cost-label{display:flex;justify-content:space-between;gap:15px;font-size:14px}.cost-label span{color:var(--muted)}.cost-rail{margin-top:6px;height:11px;background:#344955;border-radius:100px;overflow:hidden}.cost-fill{height:100%;background:#637a91;transition:width .15s}.cost-fill.top{background:var(--mint)}.info-strip{padding:15px 18px;margin-top:24px;border-radius:9px;background:#153442;color:#cde0dd;font-size:13px}.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}.form-label{display:block;font-size:13px;font-weight:850;margin:23px 0 8px}.url-input{background:#081721;border:1px solid #708995;color:var(--cream);padding:15px;width:100%;border-radius:9px;font-size:14px;outline-offset:2px}.url-input:focus{border-color:var(--mint)}.preset-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}.preset{color:var(--cream);background:transparent;border:1px solid #55717b;border-radius:8px;padding:9px 12px;font-size:12px}.preset:hover{background:#304550}.analyze{margin-top:24px;border:0;background:var(--mint);color:#06211e;font-size:15px;font-weight:850;border-radius:10px;width:100%;padding:15px}.analyze:hover{background:var(--lime)}.url-summary{margin-top:0;color:var(--mint);font-weight:800;overflow-wrap:anywhere}.signal-list{display:grid;grid-template-columns:1fr;gap:9px}.signal{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:9px 0}.signal strong{font-size:13px;display:block}.signal small{font-size:11px;color:var(--muted);display:block}.signal-status{border-radius:20px;padding:4px 8px;white-space:nowrap;font-size:11px;font-weight:800}.seen{background:#55352e;color:#ffc0a5}.not-seen{background:#1a3a3d;color:#a5e3d3}.hint{font-size:11px;color:#bed0cb;line-height:1.8}.input-error{color:#ffcab6;padding:12px;border:1px solid #a56d55;border-radius:6px}.limitation{background:#0d202c}.cautions{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.caution{border-top:2px solid #68848b;padding:14px 0 0}.caution h3{font-size:17px;margin:5px 0}.caution p{font-size:13px;color:var(--muted)}footer{max-width:1200px;margin:auto;padding:40px 30px;display:flex;justify-content:space-between;gap:20px;font-size:12px;color:var(--muted)}footer a{color:var(--mint)}@media(max-width:850px){.paper-card,.cost-layout,.demo-grid{grid-template-columns:1fr}.metric-hero{border-right:none;border-bottom:1px solid var(--line);padding:0 0 24px}.model-grid{grid-template-columns:1fr 1fr}.cautions{grid-template-columns:1fr}}@media(max-width:540px){header{height:auto;min-height:75px;flex-wrap:wrap;gap:8px;padding:16px 22px}nav{gap:13px;flex-wrap:wrap}nav a{font-size:12px}.section{padding:62px 22px}.hero{padding-top:85px}h1{letter-spacing:-2px}.lead{font-size:16px}.model-grid{grid-template-columns:1fr}.model-btn{padding:19px}.model-btn.is-active{padding:18px}.paper-card,.pad-card{padding:22px}footer{flex-direction:column}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<header><a class="brand" href="#top"><span class="brand-mark">⌁</span> PhishScope <span class="muted tiny">/ ALEPH 13</span></a><nav aria-label="주요 영역"><a href="#compare">논문 결과</a><a href="#decision">비용 비교</a><a href="#inspect">URL 관찰</a><a href="#limits">한계</a></nav></header>
+<main id="main">
+<section id="top" class="section hero">
+<span class="pill"><span class="pulse"></span> 논문을 실제로 써보는 교육용 도구</span>
+<p class="eyebrow" style="margin-top:26px">ALEPH 10 → ALEPH 13 · Phishing Research Companion</p>
+<h1>피싱 탐지,<br><em>어떤 단서를</em><br>확인해야 할까?</h1>
+<p class="lead">피싱 탐지 모델을 연구하거나 보안 점검 방법을 고민하는 사람이, <strong>입력 특징에 따른 미탐·오경보 차이를 비교하고</strong> URL 표기 단서를 직접 관찰하도록 돕는 앱입니다.</p>
+<div class="hero-buttons"><a class="primary" href="#compare">논문 결과 비교 시작 ↗</a><a class="secondary" href="#inspect">예시 URL 살펴보기 →</a></div>
+<div class="fact-band"><span><strong>원 논문</strong> · 피싱 웹사이트 탐지에서 입력 특징을 줄이면 분류 성능은 얼마나 달라지는가?</span><span><strong>표본</strong> · UCI 450건 / 2026.10.14 분석</span></div>
+</section>
+<section id="compare" class="section">
+<div class="section-head"><p class="eyebrow">01 / COMPARE THE EVIDENCE</p><h2>특징 집합 하나로<br>놓치는 공격의 수가 바뀝니다.</h2><p class="desc">논문의 동일한 450건 OOF 예측 결과를 그대로 사용해 세 조건을 비교합니다. 조건 하나를 누르면 피싱 미탐·정상 오경보의 실제 표본 수가 바뀝니다.</p></div>
+<div class="model-grid" role="group" aria-label="피싱 탐지 모델의 특징 조건 선택">
+<button class="model-btn" type="button" data-model="url8" aria-pressed="false"><small>01 · URL 표기만 사용</small><strong>0.688</strong><span>8특징 · 피싱 F1</span></button>
+<button class="model-btn" type="button" data-model="ssl9" aria-pressed="true"><small>02 · SSL 정보 한 가지 추가</small><strong>0.875</strong><span>9특징 · 피싱 F1</span></button>
+<button class="model-btn" type="button" data-model="all30" aria-pressed="false"><small>03 · 모든 원본 특징 사용</small><strong>0.914</strong><span>30특징 · 피싱 F1</span></button>
+</div>
+<div class="paper-card" aria-live="polite">
+<div class="metric-hero"><p class="eyebrow">SELECTED FEATURE SET</p><h3 id="model-name" style="margin:6px 0 16px;font-size:21px">URL + SSL 9특징</h3><div id="model-f1" class="big">0.875</div><span class="biglabel">피싱 F1 (정밀도와 재현율의 조화평균)</span><div class="metric-sub"><span>재현율</span><strong id="model-recall">86.3%</strong></div><div class="metric-sub"><span>정밀도</span><strong id="model-precision">88.8%</strong></div></div>
+<div>
+<div class="progress-unit"><div class="progress-top"><strong>피싱 탐지</strong><span id="fn-ratio">25 / 183건 미탐</span></div><div class="rail"><div class="fill" id="bar-phishing" style="width:86.3%"></div></div><p id="stat-phishing" class="muted tiny">피싱 183건 중 158건 탐지 · 25건 놓침</p></div>
+<div class="progress-unit"><div class="progress-top"><strong>정상 구분</strong><span id="fp-ratio">20 / 267건 오경보</span></div><div class="rail"><div class="fill regular" id="bar-regular" style="width:92.5%"></div></div><p id="stat-regular" class="muted tiny">정상 267건 중 247건 정상 판단 · 20건 오경보</p></div>
+<div class="fnfp"><div class="mini"><span>놓친 피싱 (FN)</span><b id="model-fn">25건</b></div><div class="mini"><span>정상에 대한 오경보 (FP)</span><b id="model-fp">20건</b></div></div>
+</div></div><p class="disclaimer">분류기는 논문의 로지스틱 회귀입니다. 이 앱은 논문에서 이미 검증된 수치를 비교하며, 새 URL을 실제 모델로 판정하거나 재학습하지 않습니다.</p>
+</section>
+<section id="decision" class="section">
+<div class="section-head"><p class="eyebrow">02 / COST-AWARE DECISION</p><h2>미탐이 더 치명적이라면?</h2><p class="desc">놓친 피싱 1건과 잘못 울린 경고 1건을 얼마나 다르게 취급할지 선택해 보세요. 논문에 있는 FN·FP 건수로 교육용 가중 오류 점수를 계산합니다. 작을수록 유리합니다.</p></div>
+<div class="cost-layout"><div class="pad-card"><label class="range-head" for="missed-weight">피싱 미탐 가중치 <strong id="weight-label">5배</strong></label><input type="range" id="missed-weight" min="1" max="20" step="1" value="5"><div class="range-ticks"><span>1배</span><span>10배</span><span>20배</span></div><div class="winner"><small>선택한 조건에서 낮은 가중 오류 점수</small><strong id="best-choice">전체 30특징</strong></div></div><div class="pad-card"><p class="eyebrow" style="margin-top:0">WEIGHTED HISTORICAL ERRORS</p><div id="cost-items" aria-live="polite"></div><p class="muted tiny" id="cost-note">미탐=5점, 오경보=1점</p></div></div><div class="info-strip"><strong>계산식</strong> · 가중 오류 점수 = 미탐 건수(FN) × 미탐 가중치 + 오경보 건수(FP) × 1. 실제 금전 피해액·현대 탐지 성능·실행 비용으로 해석해서는 안 됩니다.</div>
+</section>
+<section id="inspect" class="section">
+<div class="section-head"><p class="eyebrow">03 / LOOK AT URL CLUES</p><h2>예시 URL에서<br>눈으로 확인할 수 있는 단서</h2><p class="desc">URL 8특징의 이름을 참고해, 문자열만으로 관찰 가능한 신호를 살펴봅니다. 입력 주소를 전송하거나 접속하지 않습니다. SSL 상태와 HTML·외부 데이터는 확인하지 않습니다.</p></div>
+<div class="demo-grid"><div class="pad-card"><p class="kicker">Step 1 · 예시를 선택하거나 입력</p><form id="url-form"><label class="form-label" for="url-input">살펴볼 웹 주소 (HTTP/HTTPS만)</label><input class="url-input" id="url-input" type="text" maxlength="2048" autocomplete="off" spellcheck="false" value="http://secure-login.example-check.example/account/verify?step=2" placeholder="https://example.org/path" aria-describedby="url-help"><p id="url-help" class="muted tiny">※ 연습에는 .example 도메인 등 가상 주소를 사용하세요. 개인정보가 있는 주소는 입력하지 마세요.</p><div class="preset-wrap" role="group" aria-label="연습 예시 주소"><button type="button" class="preset" data-sample="regular">일반형 예시</button><button type="button" class="preset" data-sample="misleading">혼동형 예시</button><button type="button" class="preset" data-sample="numeric">IP형 예시</button></div><button class="analyze" type="submit">URL 표기 단서 살펴보기 →</button></form></div><div class="pad-card"><p class="kicker">Step 2 · 관찰 결과 읽기</p><div id="url-result" aria-live="polite"><p class="muted">주소를 입력하고 위 버튼을 누르면 단서 목록이 표시됩니다.</p></div></div></div>
+</section>
+<section id="limits" class="section limitation"><div class="section-head"><p class="eyebrow">04 / IMPORTANT LIMITS</p><h2>결과의 범위를 정확히 지킵니다.</h2><p class="desc">읽고 직접 확인할 수 있는 도구이지만 실전 피싱 차단기 또는 안전 인증 서비스는 아닙니다.</p></div><div class="cautions"><div class="caution"><h3>2015년 공개 자료</h3><p>논문은 UCI 원본 11,055건 중 450건을 대상으로 했습니다. 오늘날의 피싱 사이트나 현재 SSL 환경에 대한 탐지 성능을 뜻하지 않습니다.</p></div><div class="caution"><h3>실제 URL 판별이 아님</h3><p>URL 단서 관찰은 훈련된 분류기와 다른 교육용 휴리스틱입니다. 단서가 없어도 피싱일 수 있고, 단서가 있어도 정상 사이트일 수 있습니다.</p></div><div class="caution"><h3>오프라인·비수집</h3><p>입력 URL을 외부 서비스로 전송·저장·접속하지 않습니다. AI/API 키, 개인정보, 로그인, 쿠키 또는 원격 분석 서비스가 필요하지 않습니다.</p></div></div><p class="muted tiny" style="margin-top:30px">연구 출처: 「피싱 웹사이트 탐지에서 입력 특징을 줄이면 분류 성능은 얼마나 달라지는가?」, ALEPH 10 (2026-10-14) · UCI Phishing Websites Dataset, DOI 10.24432/C51W2X, CC BY 4.0.</p></section>
+</main><footer><span>© 2026 PhishScope · ALEPH 13 · 학생 프로젝트</span><span>근거 기반 교육용 앱 · <a href="https://aleph-subject-a.vercel.app/">자기소개 포트폴리오 ↗</a></span></footer>
+<script>
+/* ALEPH Subject 13 • paper-grounded historic comparison and offline URL hints. */
+(function (root) {
+  'use strict';
+  const DATA = Object.freeze({
+    url8: Object.freeze({id:'url8', label:'URL 8특징', precision:0.629, recall:0.760, f1:0.688, auc:0.792, tp:139, fn:44, fp:82, tn:185, featureCount:8}),
+    ssl9: Object.freeze({id:'ssl9', label:'URL + SSL 9특징', precision:0.888, recall:0.863, f1:0.875, auc:0.946, tp:158, fn:25, fp:20, tn:247, featureCount:9}),
+    all30: Object.freeze({id:'all30', label:'전체 30특징', precision:0.932, recall:0.896, f1:0.914, auc:0.983, tp:164, fn:19, fp:12, tn:255, featureCount:30})
+  });
+  const PRESETS = Object.freeze({
+    regular: 'https://portal.example.org/account',
+    misleading: 'http://secure-login.example-check.example/account/verify?step=2',
+    numeric: 'http://192.0.2.18/login/account'
+  });
+  const SHORTENERS = new Set(['bit.ly','tinyurl.com','t.co','goo.gl','ow.ly','is.gd','buff.ly','cutt.ly']);
+  const historicalCost = (p, missedWeight = 5, falseAlertWeight = 1) => {
+    const a = Number(missedWeight), b = Number(falseAlertWeight);
+    if (!Number.isFinite(a) || !Number.isFinite(b) || a < 0 || b < 0) throw new Error('비용 가중치는 0 이상의 유한한 숫자여야 합니다.');
+    return p.fn * a + p.fp * b;
+  };
+  const rankScenarios = (missedWeight = 5, falseAlertWeight = 1) =>
+    Object.values(DATA).map(p => ({...p, cost: historicalCost(p, missedWeight, falseAlertWeight)})).sort((a,b)=>a.cost-b.cost);
+  const isIPv4 = host => { const a=host.split('.'); return a.length===4 && a.every(x=> /^\d{1,3}$/.test(x) && +x<=255); };
+  function inspectUrl(raw) {
+    if (typeof raw !== 'string' || !raw.trim()) return {ok:false, message:'HTTP 또는 HTTPS로 시작하는 예시 URL을 입력해 주세요.'};
+    if (raw.length > 2048) return {ok:false,message:'URL은 2,048자 이하로 입력해 주세요.'};
+    const trimmed=raw.trim();
+    if (!/^https?:\/\//i.test(trimmed)) return {ok:false,message:'http:// 또는 https:// 주소만 살펴볼 수 있어요. 다른 형식은 지원하지 않습니다.'};
+    let url;
+    try { url = new URL(trimmed); } catch (_) { return {ok:false,message:'URL 형식이 올바르지 않습니다. 입력값을 확인해 주세요.'}; }
+    if (!url.hostname || !['http:','https:'].includes(url.protocol)) return {ok:false,message:'HTTP 또는 HTTPS 주소가 아닙니다.'};
+    if (url.username || url.password) return {ok:false,message:'계정 또는 비밀번호가 포함된 URL은 처리하지 않습니다. 개인정보를 제거해 주세요.'};
+    const host=url.hostname.toLowerCase().replace(/\.$/,'');
+    const withoutWww = host.replace(/^www\./,'');
+    const subdomainCount = Math.max(0, withoutWww.split('.').length-2);
+    const afterScheme=trimmed.replace(/^https?:\/\//i,'');
+    const pathStart=afterScheme.indexOf('/');
+    const pathAndQuery=pathStart>=0?afterScheme.slice(pathStart):'';
+    const fields=[
+      {key:'having_IP_Address',name:'IP 주소 형식', observed:isIPv4(host) || /^\[[0-9a-f:]+\]$/i.test(host), desc:'도메인 대신 IP 주소가 사용됐는지 살펴봅니다.'},
+      {key:'URL_Length',name:'긴 주소',observed:trimmed.length>=75,desc:`전체 길이 ${trimmed.length}자 · 교육용 표시 기준 75자 이상`},
+      {key:'Shortining_Service',name:'알려진 URL 단축 서비스',observed:SHORTENERS.has(host), desc:'일부 알려진 단축 도메인만 비교합니다. 목록 밖 서비스는 놓칠 수 있습니다.'},
+      {key:'having_At_Symbol',name:'@ 문자 포함',observed:trimmed.includes('@'),desc:'@는 URL을 혼동시키는 표기일 수 있습니다.'},
+      {key:'double_slash_redirecting',name:'경로에 // 등장',observed:pathAndQuery.includes('//'),desc:'프로토콜 표기 이후에 //가 다시 등장하는지 살펴봅니다.'},
+      {key:'Prefix_Suffix',name:'호스트 이름에 하이픈',observed:host.includes('-'),desc:'하이픈은 정상 도메인에도 흔히 사용됩니다.'},
+      {key:'having_Sub_Domain',name:'다단계 하위 도메인',observed:subdomainCount>=2,desc:`하위 도메인 추정 단계 ${subdomainCount}개 · 공용 접미사 목록 없이 대략 계산`},
+      {key:'HTTPS_token',name:'주소 중 https 토큰',observed:(host+url.pathname).toLowerCase().includes('https'),desc:'https 문자열이 나타난다고 보안 연결을 뜻하지는 않습니다.'}
+    ];
+    return {ok:true, host, scheme:url.protocol.slice(0,-1).toUpperCase(), fields, observed:fields.filter(x=>x.observed).length, total:fields.length, note:'교육용 URL 문자열 관찰 결과입니다. 원 논문의 8개 범주형 특징 인코딩이나 학습 분류기를 재현한 결과가 아니며 안전·위험 판정이 아닙니다.'};
+  }
+  const api={DATA,PRESETS,historicalCost,rankScenarios,inspectUrl};
+  if (typeof module !== 'undefined' && module.exports) module.exports=api;
+  else root.PhishScopeLogic=api;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script><script>
+(function () {
+  'use strict';
+  const {DATA,PRESETS,rankScenarios,inspectUrl}=window.PhishScopeLogic;
+  let selected='ssl9';
+  const byId=id=>document.getElementById(id);
+  const number=n=>Number(n).toLocaleString('ko-KR');
+  const pct=n=>(n*100).toFixed(1)+'%';
+  const setText=(id,s)=>{byId(id).textContent=s;};
+  function renderModel() {
+    const model=DATA[selected];
+    document.querySelectorAll('.model-btn').forEach(b=>{
+      const on=b.dataset.model===selected;
+      b.classList.toggle('is-active',on); b.setAttribute('aria-pressed',String(on));
+    });
+    setText('model-name',model.label); setText('model-f1',model.f1.toFixed(3));
+    setText('model-recall',pct(model.recall)); setText('model-precision',pct(model.precision));
+    setText('model-fn',model.fn+'건'); setText('model-fp',model.fp+'건');
+    setText('fn-ratio',`${model.fn} / 183건`);setText('fp-ratio',`${model.fp} / 267건`);
+    byId('bar-phishing').style.width=`${model.tp/183*100}%`;
+    byId('bar-regular').style.width=`${model.tn/267*100}%`;
+    setText('stat-phishing',`피싱 183건 중 ${model.tp}건 탐지 · ${model.fn}건 놓침`);
+    setText('stat-regular',`정상 267건 중 ${model.tn}건 정상 판단 · ${model.fp}건 오경보`);
+  }
+  function renderCosts() {
+    const missed=Number(byId('missed-weight').value);
+    setText('weight-label',`${missed}배`);
+    const ranked=rankScenarios(missed,1);
+    setText('best-choice',ranked[0].label);
+    setText('cost-note',`피싱 미탐 1건=${missed}점, 정상 오경보 1건=1점으로 가정한 연구 표본 내 계산입니다.`);
+    const max=Math.max(...ranked.map(x=>x.cost),1);
+    const pane=byId('cost-items'); pane.replaceChildren();
+    ranked.forEach((item,i)=>{
+      const row=document.createElement('div');row.className='cost-item';
+      const label=document.createElement('div');label.className='cost-label';
+      const l=document.createElement('strong');l.textContent=item.label;const n=document.createElement('span');n.textContent=number(item.cost)+'점';
+      label.append(l,n);
+      const rail=document.createElement('div');rail.className='cost-rail';
+      const fill=document.createElement('div');fill.className='cost-fill'+(i===0?' top':'');fill.style.width=(item.cost/max*100)+'%';
+      rail.append(fill);row.append(label,rail);pane.append(row);
+    });
+  }
+  function renderUrl() {
+    const raw=byId('url-input').value;
+    const result=inspectUrl(raw),out=byId('url-result');
+    out.replaceChildren();
+    if(!result.ok){const p=document.createElement('p');p.className='input-error';p.setAttribute('role','alert');p.textContent=result.message;out.append(p);return;}
+    const summary=document.createElement('p');summary.className='url-summary';summary.textContent=`${result.host} · URL 표기 단서 ${result.observed}/${result.total}개 관찰`;out.append(summary);
+    const list=document.createElement('div');list.className='signal-list';
+    result.fields.forEach(field=>{
+      const el=document.createElement('div');el.className='signal';
+      const info=document.createElement('div');const heading=document.createElement('strong');heading.textContent=field.name;
+      const desc=document.createElement('small');desc.textContent=field.desc;
+      info.append(heading,desc);const status=document.createElement('span');status.className='signal-status '+(field.observed?'seen':'not-seen');status.textContent=field.observed?'관찰됨':'관찰 안 됨';el.append(info,status);list.append(el);
+    });
+    out.append(list);const note=document.createElement('p');note.className='hint';note.textContent=result.note;out.append(note);
+  }
+  document.querySelectorAll('.model-btn').forEach(b=>b.addEventListener('click',()=>{selected=b.dataset.model;renderModel();}));
+  byId('missed-weight').addEventListener('input',renderCosts);
+  byId('url-form').addEventListener('submit',e=>{e.preventDefault();renderUrl();});
+  document.querySelectorAll('[data-sample]').forEach(b=>b.addEventListener('click',()=>{byId('url-input').value=PRESETS[b.dataset.sample];renderUrl();byId('url-input').focus();}));
+  renderModel();renderCosts();renderUrl();
+})();
+
+</script>
+</body></html>
