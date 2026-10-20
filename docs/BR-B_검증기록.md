@@ -33,7 +33,7 @@
 
 ## 카드 5 · 연결·제출
 
-- 기존 과제 A 사이트 https://aleph-subject-a.vercel.app/ 에 PhishScope 소개 및 공개 링크 추가
+- 기존 과제 A 사이트 https://aleph-subject-12.vercel.app/ 에 PhishScope 소개 및 공개 링크 추가
 - 과제 A GitHub 커밋 `052ab1a9717c1631ddd709bd25d471e56626c89b`, Vercel Production READY 확인
 - **동료 1명의 실제 익명 한 줄 사용 감상은 아직 미수집** (BRB-C11)
 - 과제 A 최종 확정은 사용자 보고를 받음 (외부 승인 기록 자체는 여기서 확인하지 않음)
