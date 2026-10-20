@@ -1,7 +1,7 @@
 # PhishScope — ALEPH Subject 13 (BR-B)
 
 **공개 앱:** https://aleph-subject-13.vercel.app/  
-**포트폴리오:** https://aleph-subject-a.vercel.app/
+**포트폴리오:** https://aleph-subject-12.vercel.app/
 
 10번 연구 「피싱 웹사이트 탐지에서 입력 특징을 줄이면 분류 성능은 얼마나 달라지는가?」의 결과를 직접 비교하는 교육용 웹 앱입니다. 보안 학습자가 **특징 집합이 달라질 때 피싱 미탐(FN)과 정상 오경보(FP)가 어떻게 바뀌는지** 1분 안에 이해하고 직접 체험할 수 있습니다.
 
